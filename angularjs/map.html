@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 10.8978, lng: 76.9038},
+          zoom: 8
+        });
+		
+		 var center= new google.maps.LatLng(11.0097, 76.9592); 
+		 
+		 
+		 
+		 var marker = new google.maps.Marker({
+                    position: center,
+                    animation: google.maps.Animation.BOUNCE,
+                           icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'  // default Icon changed into beach flag
+                });
+                marker.setMap(map);
+
+				
+				
+				
+				
+		var infoWindow = new google.maps.InfoWindow({
+
+                    content: '<h1>Brookefields Mall</h1>'
+                });
+
+	marker.addListener('click', function () {
+                    infoWindow.open(map, marker);
+                });
+
+		
+		
+		   var chennai = new google.maps.LatLng(13.0827, 80.2707);
+                var delhi = new google.maps.LatLng(28.7041, 77.1025);
+                var kolkata = new google.maps.LatLng(22.5726, 88.3639);
+
+                var flightPath = new google.maps.Polyline({
+                    path: [chennai, delhi, kolkata],
+                    strokeColor: "#00CCFF",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2
+                });
+
+                flightPath.setMap(map);
+
+		
+		
+		var options = {
+                    center: {lat: 10.8978, lng: 76.9038},
+                    zoom: 4,
+                    mapTypeId: google.maps.MapTypeId.SATELLITE ,
+                    mapTypeControlOptions: {
+                        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+                        position: google.maps.ControlPosition.TOP_CENTER
+                    }
+                };
+
+		
+		
+		
+      }
+	  
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCLCo2lW7EogcaANWo1mc2KTDXnDv2BcY&callback=initMap"
+    async defer></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+<p><a href="#/login">login</a></p>
+
+<a href="#/register">register</a>
+
+<div ng-view></div>
+
+<script>
+var app = angular.module("myApp", ["ngRoute"]);
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/login", {
+        templateUrl : "login.html"
+    })
+    .when("/register", {
+        templateUrl : "register.html"
+    })
+    
+});
+</script>
+
+</body>
+</html>

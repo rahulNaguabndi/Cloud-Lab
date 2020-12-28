@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body ng-app="">
+
+<form>
+  Pick a topic:
+  <input type="radio" ng-model="myVar" value="CSE">CSE Dept
+  <input type="radio" ng-model="myVar" value="ECE">ECE Dept
+  <input type="radio" ng-model="myVar" value="Mech">Mech Dept
+</form>
+
+<div ng-switch="myVar">
+  <div ng-switch-when="CSE">
+     <h1>CSE</h1>
+     <p>Welcome to CSE Dept.</p>
+  </div>
+  <div ng-switch-when="ECE">
+     <h1>ECE</h1>
+     <p>Welcome to ECE Dept.</p>
+  </div>
+  <div ng-switch-when="Mech">
+     <h1>Mech</h1>
+     <p>Welcome to Mech Dept.</p>
+  </div>
+</div>
+
+<p>The ng-switch directive hides and shows HTML sections depending on the value of the radio buttons.</p>
+
+
+<form>
+  Select a topic:
+  <select ng-model="selvar">
+    <option value="">
+    <option value="WhatsApp">WhatsApp
+    <option value="FB">FB
+    <option value="Insta">Insta
+  </select>
+</form>
+
+<div ng-switch="selvar">
+  <div ng-switch-when="WhatsApp">
+     <h1>WhatsApp is selected</h1>
+  </div>
+  <div ng-switch-when="FB">
+     <h1>FB is selected</h1>
+  </div>
+  <div ng-switch-when="Insta">
+     <h1>Instagram is selected</h1>
+  </div>
+</div>
+
+<p>The ng-switch directive hides and shows HTML sections depending on the value of the dropdown list.</p>
+
+</body>
+</html>

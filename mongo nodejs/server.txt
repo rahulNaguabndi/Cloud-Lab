@@ -1,0 +1,87 @@
+'use strict';
+var express = require('express');
+var app = express();
+var path = require('path');
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/mydb";
+var port = process.env.PORT || 1337;
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
+
+app.use(bodyParser.json());
+
+// for parsing application/xwww-
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, 'app')));
+
+app.get('/', function (req, res) {
+    res.render('index.html');
+});
+
+
+app.post('/save', function (req, res) {
+    console.log("Inside Save" + req.body.user);
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var myobj = { name: req.body.user, address: req.body.ad };
+        db.collection("customers").insertOne(myobj, function (err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            db.close();
+        });
+    });
+    res.send('Hello world');
+});
+
+app.post('/search', function (req, res) {
+    console.log("Inside Search" + req.body.user);
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        // var query = { address: "Coimbatore" };
+        var query = { name: req.body.user }; // Get the user name from Form
+        db.collection("customers").find(query).toArray(function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            res.send('Hello world in search' + result[0].name);
+            db.close();
+        });
+    });
+
+});
+
+app.post('/update', function (req, res) {
+    console.log("Inside update" + req.body.user);
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var query = { name: req.body.user };
+        var newvalues = { name: "NPPRAKASH AMRITA", address: "Canyon 123" };
+        db.collection("customers").updateOne(query, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+            db.close();
+        });
+    });
+
+});
+
+app.post('/delete', function (req, res) {
+    console.log("Inside delete" + req.body.user);
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var query = { name: req.body.user };
+        db.collection("customers").deleteOne(query, function (err, obj) {
+            if (err) throw err;
+            console.log("1 document deleted");
+            db.close();
+        });
+    });
+
+});
+app.listen(port, function () {
+    console.log('Sample app lsitining on 1337');
+});

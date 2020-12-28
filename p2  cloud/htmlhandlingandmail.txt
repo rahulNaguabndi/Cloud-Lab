@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" />
+            <br />
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" />
+            <br />
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" placeholder="Enter a short description about yourself"></textarea>
+            <br />
+            <input type="submit" value="Create Profile" />
+        </fieldset>
+    </form>
+</body>
+</html>
+
+
+
+var http = require('http');
+var fs = require('fs');
+var formidable = require("formidable");
+var util = require('util');
+var nodemailer = require('nodemailer');
+var fields = [];
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'rqhul38@gmail.com',
+        pass: 'raahul999'
+    }
+});
+
+var server = http.createServer(function (req, res) {
+    if (req.method.toLowerCase() == 'get') {
+        displayForm(res);
+    } else if (req.method.toLowerCase() == 'post') {
+        processFormFieldsIndividual(req, res);
+    }
+
+});
+
+function displayForm(res) {
+    fs.readFile('Page1.html', function (err, data) {
+        res.writeHead(200, {
+            'Content-Type': 'text/html',
+            'Content-Length': data.length
+        });
+        res.write(data);
+        res.end();
+    });
+
+
+
+
+}
+
+function processFormFieldsIndividual(req, res) {
+    //Store the data from the fields in your data store.
+    //The data store could be a file or database or any other store based
+    //on your application.
+
+    var form = new formidable.IncomingForm();
+    form.on('field', function (field, value) {
+
+
+        fields[field] = value;
+
+    });
+
+    form.on('end', function () {
+        res.writeHead(200, {
+            'content-type': 'text/plain'
+        });
+        console.log('Recieved');
+        res.write('Received the data:\n\n');
+        res.end(util.inspect({
+            fields: fields
+        }));
+        console.log(fields.email);
+        var mailOptions = {
+            from: 'rqhul38@gmail.com',
+            to: fields.email,
+            subject: fields.name,
+            text: fields.description
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+    });
+    form.parse(req);
+
+
+
+
+}
+
+
+server.listen(1337);
+console.log("server listening on 1337");
+
+

@@ -1,0 +1,108 @@
+
+<html>
+<head>
+<script>
+	function validate() {
+		var name = document.myForm.name.value;
+		if (name == ""){
+            alert ("Enter Name");
+			return false;
+		}
+		if(!/^[a-zA-Z]*$/.test(name)) {
+			alert("Invalid");
+			return false;
+		}
+		var dob = document.myForm.dob.value;
+		if (dob == ""){
+            alert ("Enter DateOfBirth");
+			return false;
+		}
+		if(!/^([0][1-9]|[12][0-9]|[3][01])[\/\-]([0][1-9]|[1][012])[\/\-](199[0-9]|20[0-9][0-9])$/.test(dob)) {
+			alert("Invalid DOB");
+			return false;
+		}
+		var age = document.myForm.age.value;
+		if (age == ""){
+            alert ("Enter Age");
+			return false;
+		}
+		if(!/^([1-9]|[1-9][0-9]|100)$/.test(age)) {
+			alert("Invalid Age");
+			return false;
+		}
+		var gender = document.myForm.gender.value;
+		if (gender == ""){
+            alert ("Enter Gender");
+			return false;
+		}
+		if(!/^[M]|[F]$/.test(gender)) {
+			alert("Invalid Gender");
+			return false;
+		}
+		var mobile = document.myForm.mobile.value;
+		if (mobile == ""){
+            alert ("Enter Mobile Number");
+			return false;
+		}
+		if(!/^[7-9]{1}[0-9]{9}$/.test(mobile)) {
+			alert("Invalid Mobile Number");
+			return false;
+		}
+		var email = document.myForm.email.value;
+		if (email == ""){
+            alert ("Enter EmailID");
+			return false;
+		}
+		if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(email)) {
+			alert("Invalid Email Address");
+			return false;
+		}
+		var userid = document.myForm.userid.value;
+		if (userid == ""){
+            alert ("Enter UserID");
+			return false;
+		}
+		if(!/^[a-zA-Z0-9]+[\.-]?(\w)*$/.test(userid)) {
+			alert("Invalid UserID");
+			return false;
+		}
+		var pswd = document.myForm.password.value;
+		if (pswd == ""){
+            alert ("Enter Password");
+			return false;
+		}
+		if(!/^((\w)*[A-Z]+(\w)*[0-9]+(\w)*)|((\w)*[0-9]+(\w)*[A-Z]+(\w)*)$/.test(pswd)) {
+			alert("Invalid Password");
+			return false;
+		}
+		if(pswd.length<6){
+			alert("Minimum 6 characters");
+			return false;
+		}
+		var repswd = document.myForm.retype_password.value;
+		if (repswd == ""){
+            alert ("Enter Retype-Password");
+			return false;
+		}
+		if(!repswd.match(pswd)) {
+			alert("Passwords not matched");
+			return false;
+		}
+	}
+</script>
+</head>
+<body>
+<form method="POST" name="myForm" onsubmit="return validate()">
+	Name: <input type="text" name="name"><br />
+	DOB: <input type="text" name="dob"><br />
+	Age: <input type="text" name="age"><br />
+	Gender: <input type="text" name="gender"><br />
+	Mobile: <input type="text" name="mobile"><br />
+	Email: <input type="text" name="email"><br />
+	UserID: <input type="text" name="userid"><br />
+	Password: <input type="text" name="password"><br />
+	Retype Password: <input type="text" name="retype_password">
+	<input type="submit" value="submit" name="submit_btn">
+</form>
+</body>
+</html>

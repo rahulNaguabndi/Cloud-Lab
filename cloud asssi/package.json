@@ -1,0 +1,12 @@
+{
+  "name": "nodejs-web-app3",
+  "version": "0.0.0",
+  "description": "NodejsWebApp3",
+  "main": "server.js",
+  "author": {
+    "name": "KOGUL"
+  },
+  "dependencies": {
+    "mongodb": "^2.2.33"
+  }
+}

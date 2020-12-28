@@ -1,0 +1,20 @@
+
+
+<form name="myForm">
+<input type="email" name="myInput" ng-model="myInput">
+
+<div id="name-group" class="form-group-lg">
+                        <input type="password"
+                               ng-required="true"
+                               ng-model="userpassword"
+                               name="password"
+                              ng-minlength="5"
+                               class="form-control "
+                               placeholder="Password atleast 6 character">
+</form>
+
+<p>The input's valid state is:</p>
+<h1>{{myForm.myInput.$valid}}</h1>
+<p>Note that the state of the input field is "true" before you start writing in it, even if it does not contain an e-mail address.</p>
+
+
